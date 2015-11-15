@@ -3,12 +3,12 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "libvirtwol">
 <!ENTITY author    "dmacias72">
-<!ENTITY version   "2015.11.14b">
+<!ENTITY version   "2015.11.14c">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
 <!ENTITY pkgURL	 "https://raw.githubusercontent.com/&author;/unRAID_6.0/master/">
 <!ENTITY pkgs 	    "/boot/packages/">
 <!ENTITY plugin	 "/boot/config/plugins/&name;">
-<!ENTITY launch    "Settings/VMManger">
+<!ENTITY launch    "Settings/VMManager">
 <!ENTITY emhttp	 "/usr/local/emhttp/plugins/&name;">
 
 ]>
@@ -28,7 +28,8 @@ This Plugin installs libvirt wake on lan for unRaid 6.1  All dependencies are in
 -->
 
 <CHANGES>
-###2015.11.14b
+###2015.11.14c
+- fix plugin page image and link
 - pkg variable typo
 ###2015.11.14
 - initial commit
