@@ -61,7 +61,8 @@ class LibVirtWakeOnLan:
 
     @staticmethod
     def GetMACAddress(s):
-        if len(s) == 110:
+        size = len(s)
+        if size == 110 or size == 42:
             bytes = map(lambda x: '%.2x' % x, map(ord, s))
             counted = 0
             macpart = 0
@@ -72,7 +73,7 @@ class LibVirtWakeOnLan:
             for byte in bytes:
                 if counted < 6:
                     # find 6 repetitions of 255
-                    if byte == "ff":
+                    if byte == "ff" or size == 42:
                         counted += 1
                 else:
                     # find 16 repititions of 48 bit mac
@@ -95,9 +96,12 @@ class LibVirtWakeOnLan:
             if counted == 6 and maccounted == 16:
                 return macaddress
 
+            if counted == 6 and maccounted == 6 and size == 42:
+                return macaddress
+
     @staticmethod
     def DecodeIPPacket(s):
-        if len(s) < 10:
+        if len(s) < 20:
             return None
         d = {}
         d['version'] = (ord(s[0]) & 0xf0) >> 4
