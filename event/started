@@ -1,0 +1,5 @@
+#!/bin/bash
+source /boot/config/plugins/libvirtwol/libvirtwol.cfg
+if [ $SERVICE = enable ]; then
+	/usr/local/emhttp/plugins/libvirtwol/scripts/start
+fi
