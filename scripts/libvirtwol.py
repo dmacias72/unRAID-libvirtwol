@@ -148,7 +148,7 @@ if __name__ == '__main__':
     interface = sys.argv[1]
     p = pcap.pcapObject()
     net, mask = pcap.lookupnet(interface)
-    p.open_live(interface, 1600, 0, 100)
+    p.open_live(interface, 1600, 1, 100)
     p.setfilter('udp port 7 or udp port 9 or ether proto 0x0842', 0, 0)
 
     try:
