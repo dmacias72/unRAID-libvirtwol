@@ -22,6 +22,7 @@ exit $?
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    dmacias - added fixes for ether proto 0x0842
 import pcap
 import sys
 import socket
@@ -61,6 +62,7 @@ class LibVirtWakeOnLan:
 
     @staticmethod
     def GetMACAddress(s):
+    	  # added fix for ether proto 0x0842
         size = len(s)
         if size == 110 or size == 42:
             bytes = map(lambda x: '%.2x' % x, map(ord, s))
@@ -72,7 +74,7 @@ class LibVirtWakeOnLan:
 
             for byte in bytes:
                 if counted < 6:
-                    # find 6 repetitions of 255
+                    # find 6 repetitions of 255 and added fix for ether proto 0x0842
                     if byte == "ff" or size == 42:
                         counted += 1
                 else:
@@ -95,7 +97,7 @@ class LibVirtWakeOnLan:
 
             if counted == 6 and maccounted == 16:
                 return macaddress
-
+        	  # added fix for ether proto 0x0842
             if counted == 6 and maccounted == 6 and size == 42:
                 return macaddress
 
@@ -148,7 +150,9 @@ if __name__ == '__main__':
     interface = sys.argv[1]
     p = pcap.pcapObject()
     net, mask = pcap.lookupnet(interface)
+    # set promiscuous to 1 so all packets are captured
     p.open_live(interface, 1600, 1, 100)
+    # added support for ether proto 0x0842
     p.setfilter('udp port 7 or udp port 9 or ether proto 0x0842', 0, 0)
 
     try:
