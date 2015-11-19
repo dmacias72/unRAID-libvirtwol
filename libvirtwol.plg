@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "libvirtwol">
 <!ENTITY author    "dmacias72">
-<!ENTITY version   "2015.11.17">
+<!ENTITY version   "2015.11.18">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
 <!ENTITY pkgURL	 "https://raw.githubusercontent.com/&author;/unRAID_6.0/master/">
 <!ENTITY pkgs 	    "/boot/packages/">
@@ -28,6 +28,8 @@ This Plugin installs libvirt wake on lan for unRaid 6.1  All dependencies are in
 -->
 
 <CHANGES>
+###2015.11.18
+- update python to 2.7.9
 ###2015.11.17
 - fix start and stop event permissions
 ###2015.11.16
@@ -44,9 +46,9 @@ This Plugin installs libvirt wake on lan for unRaid 6.1  All dependencies are in
 </CHANGES>
 
 
-<FILE Name="&pkgs;/python-2.7.5-x86_64-1.txz" Run="upgradepkg --install-new">
-<URL>&pkgURL;python-2.7.5-x86_64-1.txz</URL>
-<MD5>9b37a33a41b263c945fddb58949386f0</MD5>
+<FILE Name="/boot/config/plugins/NerdPack/packages/python-2.7.9-x86_64-1.txz" Run="/sbin/upgradepkg --install-new">
+<URL>https://raw.githubusercontent.com/eschultz/unraid6-nerdpack/master/packages/python-2.7.9-x86_64-1.txz</URL>
+<MD5>7d5f6d12757c59e5f08ca25bd63aab78</MD5>
 </FILE>
 <FILE Name="&pkgs;libvirt-python-1.2.18-x86_64-1ponce.txz" Run="upgradepkg --install-new">
 <URL>&pkgURL;libvirt-python-1.2.18-x86_64-1ponce.txz</URL>
