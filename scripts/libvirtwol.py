@@ -64,7 +64,7 @@ class LibVirtWakeOnLan:
     def GetMACAddress(s):
     	  # added fix for ether proto 0x0842
         size = len(s)
-        if size == 110 or 1:
+        if size == 110 or size != 110:
             bytes = map(lambda x: '%.2x' % x, map(ord, s))
             counted = 0
             macpart = 0
@@ -75,7 +75,7 @@ class LibVirtWakeOnLan:
             for byte in bytes:
                 if counted < 6:
                     # find 6 repetitions of 255 and added fix for ether proto 0x0842
-                    if byte == "ff" or size != 110:
+                    if byte == "ff" or size < 110:
                         counted += 1
                 else:
                     # find 16 repititions of 48 bit mac
@@ -89,16 +89,13 @@ class LibVirtWakeOnLan:
                         macaddress = newmac
 
                     if macpart is 6:
-                        if macaddress != newmac:
-                            return None
+                        #if macaddress != newmac:
+                            #return None
                         newmac = ""
                         macpart = 0
                         maccounted += 1
-                    
-            if counted == 6 and maccounted == 16:
-                return macaddress
-        	  # added fix for ether proto 0x0842
-            if counted == 6 and maccounted == 6 and size != 110:
+            
+            if counted > 5 and maccounted > 5:
                 return macaddress
 
     @staticmethod
@@ -133,7 +130,7 @@ class LibVirtWakeOnLan:
         macaddress = LibVirtWakeOnLan.GetMACAddress(decoded['data'])
         if not macaddress:
             return
-        return LibVirtWakeOnLan.StartServerByMACAddress(macaddress)
+        return  LibVirtWakeOnLan.StartServerByMACAddress(macaddress)
 
 if __name__ == '__main__':
     from lvwolutils import Utils
