@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "libvirtwol">
 <!ENTITY author    "dmacias72">
-<!ENTITY version   "2017.11.28">
+<!ENTITY version   "2017.11.28a">
 <!ENTITY launch    "Settings/VMSettings">
 <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unRAID-libvirtwol/master">
 <!ENTITY pluginURL "&gitURL;/plugin/&name;.plg">
@@ -21,6 +21,10 @@ This Plugin installs libvirt wake on lan for unRaid 6.1  All dependencies are in
 
 <CHANGES>
 ##&name;
+###2017.11.28a
+- update libvirt-python to 3.8 for 6.4
+- update python to 2.7.14a for 6.4
+- add work around to plugin install services
 ###2017.11.28
 - move to separate repo
 ###2017.04.11
@@ -105,7 +109,12 @@ This Plugin installs libvirt wake on lan for unRaid 6.1  All dependencies are in
 <MD5>7d5f6d12757c59e5f08ca25bd63aab78</MD5>
 </FILE>
 
-<FILE Name="&plgPATH;/libvirt-python-2.5.0-x86_64-1ponce.txz" Min="6.3" Run="upgradepkg --install-new">
+<FILE Name="&plgPATH;/libvirt-python-3.8.0-x86_64-1ponce.txz" Min="6.4" Run="upgradepkg --install-new">
+<URL>&pkgURL;/libvirt-python-3.8.0-x86_64-1ponce.txz</URL>
+<MD5>b6e4e01d594c43cd580bf877d337a92f</MD5>
+</FILE>
+
+<FILE Name="&plgPATH;/libvirt-python-2.5.0-x86_64-1ponce.txz" Min="6.3" Max="6.3.99" Run="upgradepkg --install-new">
 <URL>&pkgURL;/libvirt-python-2.5.0-x86_64-1ponce.txz</URL>
 <MD5>f8e0ec66914344f0894ff45f7d8561f5</MD5>
 </FILE>
@@ -147,6 +156,31 @@ The 'plugin' package MD5 hash.
 <URL>&gitURL;/archive/&plgNAME;.md5</URL>
 </FILE>
 
+<!-- WORKAROUND -->
+<FILE Name="/tmp/start_&name;" Mode="0770">
+<INLINE>
+#!/bin/bash
+CONFIG=/boot/config/domain.cfg
+
+# read our configuration
+if [ -e "$CONFIG" ]; then
+    source "$CONFIG"
+fi
+
+# stopping service
+/etc/rc.d/rc.&name; stop
+sleep 1
+
+# start service if enabled
+if [ "$WOL" == "enable" ]; then
+    # starting service
+    /etc/rc.d/rc.&name; start
+    sleep 1
+fi
+
+</INLINE>
+</FILE>
+
 <!--
 The 'install' script.
 -->
@@ -182,13 +216,13 @@ else
 
     upgradepkg --install-new &plgPATH;/&plgNAME;.txz
 
-    #restart event daemon
-    <![CDATA[
-    /usr/local/emhttp/plugins/libvirtwol/scripts/stop >/dev/null 2>&1 < /dev/null &
+    # Start scripts if enabled
+    echo "starting ipmi services..."
+    at -M -f /tmp/start_&name; now 2>/dev/null
+
     sleep 1
-    echo "starting libvirtwol..."
-    setsid /usr/local/emhttp/plugins/libvirtwol/scripts/start >/dev/null 2>&1 < /dev/null &
-    ]]>
+
+    rm -f /tmp/start_&name;
 
     # Cleaning old source files
     find &plgPATH;/ -type f -iname "&name;*.txz" ! -iname "*&version;*" -delete
