@@ -1,6 +1,7 @@
 <?
 $config_file        = '/boot/config/domain.cfg';
 $libvirtwol_cfg     = parse_ini_file($config_file);
+$libvirtwol_python  = (!file_exists('/usr/bin/python'));
 $libvirtwol_service = isset($libvirtwol_cfg['WOL']) ? htmlspecialchars($libvirtwol_cfg['WOL']) : 'disable';
 $libvirtwol_running = (intval(trim(shell_exec( "ps ax | grep 'libvirtwol.py' | grep -v grep &>/dev/null && echo 1 || echo 0 2> /dev/null" ))) === 1);
 $status_running     = '<span class="green">Running</span>';
@@ -35,6 +36,11 @@ $libvirtwol_status  = ($libvirtwol_running) ? $status_running : $status_stopped;
 </div>
 <script>
 $(function(){
+    // check for python 2
+    if ("<?=$libvirtwol_python;?>"){
+        swal({title:'Python 2 Not Installed',text:'Libvirt Wake On Lan requires python 2 from the NerdPack plugin https://raw.githubusercontent.com/dmacias72/unRAID-NerdPack/master/plugin/NerdPack.plg',type:'error',closeOnConfirm: true});
+    }
+
     // dynamix plugin update api
     <?if (function_exists('plugin_update_available') && $version = plugin_update_available('libvirtwol')):?>
         showNotice('Wake on Lan <?=htmlspecialchars($version);?> available. <a>Update</a>','libvirtwol');
