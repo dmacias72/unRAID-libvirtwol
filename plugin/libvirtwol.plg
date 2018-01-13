@@ -217,11 +217,13 @@ else
     find &plgPATH;/ -type f -iname "&name;*.md5" ! -iname "*&version;*" -delete
 
 echo ""
-echo "-----------------------------------------------------------"
+echo "--------------------------------------------------------------------------------------"
 echo " &name; has been installed."
+echo " This plugin requires NerdPack's Python 2 to operate"
+echo " http://raw.githubusercontent.com/dmacias72/unRAID-NerdPack/master/plugin/NerdPack.plg"
 echo " Copyright 2016-2018, &author;"
 echo " Version: &version;"
-echo "-----------------------------------------------------------"
+echo "--------------------------------------------------------------------------------------"
 echo ""
 
 fi
@@ -243,13 +245,11 @@ rm -f &plgPATH;/*.txz \
 #sed -i -- 's/VMManager:1/OtherSettings/g' /usr/local/emhttp/plugins/dynamix.vm.manager/VMSettings.page
 
 echo ""
-echo "--------------------------------------------------------------------------------------"
+echo "-----------------------------------------------------------"
 echo " &name; has been removed."
-echo " This plugin requires NerdPack's Python 2 to operate"
-echo " http://raw.githubusercontent.com/dmacias72/unRAID-NerdPack/master/plugin/NerdPack.plg"
 echo " Copyright 2016-2018, &author;"
 echo " Version: &version;"
-echo "--------------------------------------------------------------------------------------"
+echo "-----------------------------------------------------------"
 echo ""
 </INLINE>
 </FILE>
