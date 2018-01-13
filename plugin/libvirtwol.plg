@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "libvirtwol">
 <!ENTITY author    "dmacias72">
-<!ENTITY version   "2017.11.28a">
+<!ENTITY version   "2018.01.13">
 <!ENTITY launch    "Settings/VMSettings">
 <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unRAID-libvirtwol/master">
 <!ENTITY pluginURL "&gitURL;/plugin/&name;.plg">
@@ -21,6 +21,9 @@ This Plugin installs libvirt wake on lan for unRaid 6.1  All dependencies are in
 
 <CHANGES>
 ##&name;
+###2018.01.13
+- require NerdPack for Python 2 install
+- add notification for missing python
 ###2017.11.28a
 - update libvirt-python to 3.8 for 6.4
 - update python to 2.7.14a for 6.4
@@ -93,21 +96,6 @@ This Plugin installs libvirt wake on lan for unRaid 6.1  All dependencies are in
 ###2015.11.14
 - initial commit
 </CHANGES>
-
-<FILE Name="&plgPATH;/python-2.7.14a-x86_64-1.txz" Min="6.4" Run="upgradepkg --install-new">
-<URL>&pkgURL;/python-2.7.14a-x86_64-1.txz</URL>
-<MD5>1b07bf5c48df7b5601f8f5c4e997911f</MD5>
-</FILE>
-
-<FILE Name="&plgPATH;/python-2.7.13b-x86_64-2.txz" Min="6.2" Max="6.3.99" Run="upgradepkg --install-new">
-<URL>&pkgURL;/python-2.7.13b-x86_64-2.txz</URL>
-<MD5>aec22a295487f44e1551894ba98760c2</MD5>
-</FILE>
-
-<FILE Name="&plgPATH;/python-2.7.9-x86_64-1.txz" Min="6.1" Max="6.1.99" Run="upgradepkg --install-new">
-<URL>&pkgURL;/python-2.7.9-x86_64-1.txz</URL>
-<MD5>7d5f6d12757c59e5f08ca25bd63aab78</MD5>
-</FILE>
 
 <FILE Name="&plgPATH;/libvirt-python-3.8.0-x86_64-1ponce.txz" Min="6.4" Run="upgradepkg --install-new">
 <URL>&pkgURL;/libvirt-python-3.8.0-x86_64-1ponce.txz</URL>
@@ -231,7 +219,7 @@ else
 echo ""
 echo "-----------------------------------------------------------"
 echo " &name; has been installed."
-echo " Copyright 2016-2017, &author;"
+echo " Copyright 2016-2018, &author;"
 echo " Version: &version;"
 echo "-----------------------------------------------------------"
 echo ""
@@ -246,7 +234,7 @@ The 'remove' script.
 <FILE Run="/bin/bash" Method="remove">
 <INLINE>
 &emhttp;/scripts/stop
-removepkg &plgPATH;/&plgNAME;.txz
+removepkg &plgPATH;/*.txz
 rm -rf &emhttp;
 rm -f &plgPATH;/*.txz \
   &plgPATH;/*.md5
@@ -255,11 +243,13 @@ rm -f &plgPATH;/*.txz \
 #sed -i -- 's/VMManager:1/OtherSettings/g' /usr/local/emhttp/plugins/dynamix.vm.manager/VMSettings.page
 
 echo ""
-echo "-----------------------------------------------------------"
+echo "--------------------------------------------------------------------------------------"
 echo " &name; has been removed."
-echo " Copyright 2016-2017, &author;"
+echo " This plugin requires NerdPack's Python 2 to operate"
+echo " http://raw.githubusercontent.com/dmacias72/unRAID-NerdPack/master/plugin/NerdPack.plg"
+echo " Copyright 2016-2018, &author;"
 echo " Version: &version;"
-echo "-----------------------------------------------------------"
+echo "--------------------------------------------------------------------------------------"
 echo ""
 </INLINE>
 </FILE>
