@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "libvirtwol">
 <!ENTITY author    "dmacias72">
-<!ENTITY version   "2019.01.06">
+<!ENTITY version   "2019.01.06a">
 <!ENTITY launch    "Settings/VMSettings">
 <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unRAID-libvirtwol/master">
 <!ENTITY pluginURL "&gitURL;/plugin/&name;.plg">
@@ -21,7 +21,7 @@ This Plugin installs libvirt tools for unRaid 6.4+  All dependencies are install
 
 <CHANGES>
 ##&name;
-###2019.01.06
+###2019.01.06a
 - move all python dependencies to virtual environment package
 - add initial support for virtual bmc
 ###2018.10.28
