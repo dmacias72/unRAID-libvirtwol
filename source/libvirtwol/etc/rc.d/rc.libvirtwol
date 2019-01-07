@@ -16,7 +16,7 @@ if [ $WOL == "enable" ]; then
     if [ ! -r $PIDFILE ]; then
       echo "starting $prog..."
         sleep 1
-        nohup /usr/bin/python $LIBVIRTWOL $BRNAME > /dev/null 2>&1 & echo $! > $PIDFILE &
+        nohup /usr/share/libvirt-python-env/bin/python $LIBVIRTWOL $BRNAME > /dev/null 2>&1 & echo $! > $PIDFILE &
         touch $LOCKFILE
         TIMER=0
         while [ ! -e $PIDFILE ]; do
