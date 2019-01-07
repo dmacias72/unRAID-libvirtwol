@@ -47,7 +47,7 @@ $vbmc_status  = ($vbmc_running) ? $vbmc_status_running : $vbmc_status_stopped;
 <input type="hidden" name="#file" value="/boot/config/domain.cfg" />
 <input type="hidden" id="vbmccommand" name="#command" value="" />
 <dl>
-    <dt>Enable Wake On Lan:</dt>
+    <dt>Enable Virtual BMC:</dt>
     <dd>
         <select id="VBMC" name="VBMC" size="1">
             <?=mk_option($vbmc_service, "disable", "No");?>
