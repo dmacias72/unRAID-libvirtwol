@@ -1,0 +1,66 @@
+#!/bin/sh
+# start/stop/restart libvirtwol daemon:
+prog="vbmcd"
+VIRTBMC="/usr/bin/$prog"
+LOCKFILE="/var/lock/$prog"
+PIDFILE="/var/run/$prog.pid"
+CONFIG="/boot/config/domain.cfg"
+
+# read our configuration
+[ -e $CONFIG ] &&	source $CONFIG
+
+# Start virtualbmc:
+virtualbmc_start() {
+if [ $VBMC == "enable" ]; then
+    # no-op if already running
+    if [ ! -r $PIDFILE ]; then
+      echo "starting $prog..."
+        sleep 1
+#        nohup /usr/share/virtualbmc/bin/python /usr/bin/$prog > /dev/null 2>&1 & echo $! > $PIDFILE &
+        nohup /usr/bin/$prog --foreground > /dev/null 2>&1 & echo $! > $PIDFILE &
+        touch $LOCKFILE
+        TIMER=0
+        while [ ! -e $PIDFILE ]; do
+            sleep 1
+            let TIMER=$TIMER+1
+            if [ $TIMER -gt 5 ]; then
+                  echo -n "$PIDFILE not created"
+                   break
+            fi
+        done
+    fi
+fi
+}
+
+# Stop virtualbmc:
+virtualbmc_stop() {
+# no-op if not running
+if [ -r $PIDFILE ]; then
+echo "stopping $prog..."
+sleep 1
+    kill -TERM $(<"$PIDFILE") > /dev/null 2>&1
+    sleep 1
+    rm -f $LOCKFILE && rm -f $PIDFILE
+fi
+}
+
+# Restart virtualbmc:
+virtualbmc_restart() {
+    virtualbmc_stop
+    sleep 1
+    virtualbmc_start
+}
+
+case "$1" in
+'start')
+  virtualbmc_start
+  ;;
+'stop')
+  virtualbmc_stop
+  ;;
+'restart')
+  virtualbmc_restart
+  ;;
+*)
+  echo "usage rc.virtualbmc: start|stop|restart"
+esac
