@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "libvirtwol">
 <!ENTITY author    "dmacias72">
-<!ENTITY version   "2018.10.28">
+<!ENTITY version   "2019.01.06">
 <!ENTITY launch    "Settings/VMSettings">
 <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unRAID-libvirtwol/master">
 <!ENTITY pluginURL "&gitURL;/plugin/&name;.plg">
@@ -16,11 +16,14 @@
 <PLUGIN name="&name;" author="&author;" launch="&launch;" version="&version;" pluginURL="&pluginURL;">
 
 <!--
-This Plugin installs libvirt wake on lan for unRaid 6.1  All dependencies are installed as needed and is controlable from the webgui.
+This Plugin installs libvirt tools for unRaid 6.4+  All dependencies are installed as needed and is controlable from the webgui.
 -->
 
 <CHANGES>
 ##&name;
+###2019.01.06
+- move all python dependencies to virtual environment package
+- add initial support for virtual bmc
 ###2018.10.28
 - update libvirt-python to 4.7 for 6.6
 - remove support link from readme
@@ -100,45 +103,41 @@ This Plugin installs libvirt wake on lan for unRaid 6.1  All dependencies are in
 - initial commit
 </CHANGES>
 
-<FILE Name="&plgPATH;/libvirt-python-4.7.0-x86_64-1ponce.txz" Min="6.6" Run="upgradepkg --install-new">
-<URL>&pkgURL;/libvirt-python-4.7.0-x86_64-1ponce.txz</URL>
-<MD5>9913842a405fe86639dd23032a3c1884</MD5>
+<FILE Name="&plgPATH;/libvirt-python-env-4.7.0-x86_64-1.txz" Min="6.6" Run="upgradepkg --install-new">
+<URL>&pkgURL;/libvirt-python-env-4.7.0-x86_64-1.txz</URL>
+<MD5>1ad4e65e38361ec971772edb1945a109</MD5>
 </FILE>
 
-<FILE Name="&plgPATH;/libvirt-python-4.5.0-x86_64-1ponce.txz" Min="6.5" Max="6.5.99" Run="upgradepkg --install-new">
-<URL>&pkgURL;/libvirt-python-4.5.0-x86_64-1ponce.txz</URL>
-<MD5>3f853e84eb9ebcb9ffcfcac33c2c8c64</MD5>
+<FILE Name="&plgPATH;/libvirt-python-env-4.5.0-x86_64-1.txz" Min="6.5" Max="6.5.99" Run="upgradepkg --install-new">
+<URL>&pkgURL;/libvirt-python-env-4.5.0-x86_64-1.txz</URL>
+<MD5>3b1d2ebfcfd64da7714ffd089f9baee2</MD5>
 </FILE>
 
-<FILE Name="&plgPATH;/libvirt-python-3.8.0-x86_64-1ponce.txz" Min="6.4" Max="6.4.99" Run="upgradepkg --install-new">
-<URL>&pkgURL;/libvirt-python-3.8.0-x86_64-1ponce.txz</URL>
-<MD5>b6e4e01d594c43cd580bf877d337a92f</MD5>
+<FILE Name="&plgPATH;/libvirt-python-env-3.8.0-x86_64-1.txz" Min="6.4" Max="6.4.99" Run="upgradepkg --install-new">
+<URL>&pkgURL;/libvirt-python-env-3.8.0-x86_64-1.txz</URL>
+<MD5>cda965bdf9d67fb878f7ea8e17f51039</MD5>
 </FILE>
 
-<FILE Name="&plgPATH;/libvirt-python-2.5.0-x86_64-1ponce.txz" Min="6.3" Max="6.3.99" Run="upgradepkg --install-new">
-<URL>&pkgURL;/libvirt-python-2.5.0-x86_64-1ponce.txz</URL>
-<MD5>f8e0ec66914344f0894ff45f7d8561f5</MD5>
+<FILE Name="&plgPATH;/libvirt-python-env-2.5.0-x86_64-1.txz" Min="6.3" Max="6.3.99" Run="upgradepkg --install-new">
+<URL>&pkgURL;/libvirt-python-env-2.5.0-x86_64-1.txz</URL>
+<MD5>bb0ac57ece862e4a5ff35db77d8e337c</MD5>
 </FILE>
 
-<FILE Name="&plgPATH;/libvirt-python-1.3.1-x86_64-1ponce.txz" Min="6.2" Max="6.2.99" Run="upgradepkg --install-new">
-<URL>&pkgURL;/libvirt-python-1.3.1-x86_64-1ponce.txz</URL>
-<MD5>9a64e4941dd9c7fa3b9c8bf244c9a2d3</MD5>
+<FILE Name="&plgPATH;/libvirt-python-env-1.3.1-x86_64-1.txz" Min="6.2" Max="6.2.99" Run="upgradepkg --install-new">
+<URL>&pkgURL;/libvirt-python-env-1.3.1-x86_64-1.txz</URL>
+<MD5>acecf1507f7c7ad0acb6f1e6837fb8c8</MD5>
 </FILE>
 
-<FILE Name="&plgPATH;/libvirt-python-1.2.18-x86_64-1ponce.txz" Min="6.1" Max="6.1.99" Run="upgradepkg --install-new">
-<URL>&pkgURL;/libvirt-python-1.2.18-x86_64-1ponce.txz</URL>
-<MD5>4198c7784a57d7ff80fb1d53811ceb5e</MD5>
-</FILE>
-
-<FILE Name="&plgPATH;/pylibpcap-0.6.2-x86_64-1_slack.txz" Min="6.1" Run="upgradepkg --install-new">
-<URL>&pkgURL;/pylibpcap-0.6.2-x86_64-1_slack.txz</URL>
-<MD5>2531f44126b3c05d76782c9eedba9988</MD5>
+<FILE Name="&plgPATH;/libvirt-python-env-1.2.18-x86_64-1.txz" Min="6.1" Max="6.1.99" Run="upgradepkg --install-new">
+<URL>&pkgURL;/libvirt-python-env-1.2.18-x86_64-1.txz</URL>
+<MD5>80bd2f9dfcc1af8231f8ee6acc5b4f8a</MD5>
 </FILE>
 
 <FILE Name="/boot/config/domain.cfg">
 <INLINE>
 <![CDATA[
 WOL="disable"
+VBMC="disable"
 ]]>
 </INLINE>
 </FILE>
@@ -176,6 +175,17 @@ sleep 1
 if [ "$WOL" == "enable" ]; then
     # starting service
     /etc/rc.d/rc.&name; start
+    sleep 1
+fi
+
+# stopping service
+/etc/rc.d/rc.virtualbmc stop
+sleep 1
+
+# start service if enabled
+if [ "$VBMC" == "enable" ]; then
+    # starting service
+    /etc/rc.d/rc.virtualbmc start
     sleep 1
 fi
 
@@ -234,7 +244,7 @@ echo "--------------------------------------------------------------------------
 echo " &name; has been installed."
 echo " This plugin requires NerdPack's Python 2 to operate"
 echo " http://raw.githubusercontent.com/dmacias72/unRAID-NerdPack/master/plugin/NerdPack.plg"
-echo " Copyright 2016-2018, &author;"
+echo " Copyright 2016-2019, &author;"
 echo " Version: &version;"
 echo "--------------------------------------------------------------------------------------"
 echo ""
@@ -260,7 +270,7 @@ rm -f &plgPATH;/*.txz \
 echo ""
 echo "-----------------------------------------------------------"
 echo " &name; has been removed."
-echo " Copyright 2016-2018, &author;"
+echo " Copyright 2016-2019, &author;"
 echo " Version: &version;"
 echo "-----------------------------------------------------------"
 echo ""
