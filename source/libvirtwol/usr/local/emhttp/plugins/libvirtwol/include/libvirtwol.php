@@ -15,7 +15,7 @@ $vbmc_status_stopped     = '<span class="orange">Stopped</span>';
 $vbmc_status  = ($vbmc_running) ? $vbmc_status_running : $vbmc_status_stopped;
 ?>
 <div class="advanced">
-<div id="title" style="white-space:normal;"><span><img src="/plugins/libvirtwol/icons/wakeonlan.png" class="icon">Libvirt wake on lan</span>
+<div id="title" style="white-space:normal;"><span><i class="icon fa fa-bell"></i>Libvirt wake on lan</span>
 <span class="status"> Status: <?=$wol_status;?></span></div>
 <div id="wolform"></div>
 <div id="wolinput">
@@ -40,7 +40,7 @@ $vbmc_status  = ($vbmc_running) ? $vbmc_status_running : $vbmc_status_stopped;
 </dl>
 </div>
 
-<div id="title" style="white-space:normal;"><span><img src="/plugins/libvirtwol/icons/wakeonlan.png" class="icon">Libvirt Virtual BMC</span>
+<div id="title" style="white-space:normal;"><span><i class="icon fa fa-cogs"></i>Libvirt Virtual BMC</span>
 <span class="status"> Status: <?=$vbmc_status;?></span></div>
 <div id="vbmcform"></div>
 <div id="vbmcinput">
