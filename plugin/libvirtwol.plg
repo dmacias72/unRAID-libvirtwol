@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "libvirtwol">
 <!ENTITY author    "dmacias72">
-<!ENTITY version   "2019.01.06a">
+<!ENTITY version   "2019.01.25">
 <!ENTITY launch    "Settings/VMSettings">
 <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unRAID-libvirtwol/master">
 <!ENTITY pluginURL "&gitURL;/plugin/&name;.plg">
@@ -21,6 +21,9 @@ This Plugin installs libvirt tools for unRaid 6.4+  All dependencies are install
 
 <CHANGES>
 ##&name;
+###2019.01.25
+- convert icons to fa fonts
+- update python environment libvirt to 4.10.0
 ###2019.01.06a
 - move all python dependencies to virtual environment package
 - add initial support for virtual bmc
@@ -103,7 +106,12 @@ This Plugin installs libvirt tools for unRaid 6.4+  All dependencies are install
 - initial commit
 </CHANGES>
 
-<FILE Name="&plgPATH;/libvirt-python-env-4.7.0-x86_64-1.txz" Min="6.6" Run="upgradepkg --install-new">
+<FILE Name="&plgPATH;/libvirt-python-env-4.10.0-x86_64-1.txz" Min="6.7" Run="upgradepkg --install-new">
+<URL>&pkgURL;/libvirt-python-env-4.10.0-x86_64-1.txz</URL>
+<MD5>542f2c6d1427e701688311fc22f9a769</MD5>
+</FILE>
+
+<FILE Name="&plgPATH;/libvirt-python-env-4.7.0-x86_64-1.txz" Min="6.6" Max="6.6.99" Run="upgradepkg --install-new">
 <URL>&pkgURL;/libvirt-python-env-4.7.0-x86_64-1.txz</URL>
 <MD5>1ad4e65e38361ec971772edb1945a109</MD5>
 </FILE>
