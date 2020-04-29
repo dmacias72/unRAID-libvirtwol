@@ -42,9 +42,9 @@ class LibVirtWakeOnLan:
             logging.error('Failed to open connection to the hypervisor')
             sys.exit(1)
 
-        domains = conn.listDefinedDomains()
-        for domainName in domains:
-            domain = conn.lookupByName(domainName)
+        domains = conn.listAllDomains()
+        for domain in domains:
+            domainName = domain.name()
             params = []
             # TODO - replace with api calls to fetch network interfaces
             xml = minidom.parseString(domain.XMLDesc(0))
@@ -55,8 +55,13 @@ class LibVirtWakeOnLan:
                     foundmac = macadd[0].getAttribute("address")
                     if foundmac == mac:
                         logging.info("Waking up %s", domainName)
-                        domain.create()
-                        return True
+                        state = domain.state()[0]
+                        if state == 3:
+                            domain.resume()
+                            return True
+                        elif state == 5:
+                            domain.create()
+                            return True
         logging.info("Didn't find a VM with MAC address %s", mac)
         return False
 
