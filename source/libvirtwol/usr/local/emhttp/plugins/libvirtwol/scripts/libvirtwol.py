@@ -58,9 +58,15 @@ class LibVirtWakeOnLan:
                         state = domain.state()[0]
                         if state == 3:
                             domain.resume()
+                            logging.info("Resuming VM with MAC address %s", mac)
                             return True
                         elif state == 5:
                             domain.create()
+                            logging.info("Creating VM with MAC address %s", mac)
+                            return True
+                        elif state == 7:
+                            domain.pMWakeup()
+                            logging.info("Waking hibernating VM with MAC address %s", mac)
                             return True
         logging.info("Didn't find a VM with MAC address %s", mac)
         return False
